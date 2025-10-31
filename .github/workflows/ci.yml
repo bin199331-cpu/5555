@@ -1,0 +1,38 @@
+name: Build and Push Nginx Docker Image
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Клонування коду
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Встановлення лінтера (Hadolint)
+      - name: Lint Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+
+      # 3️⃣ Логін у Docker Hub
+      - name: bin1993
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUBUSERNAME }}
+          password: ${{ secrets.DOCKERHUB_SECRET }}
+
+      # 4️⃣ Збірка образу
+      - name: Build Docker image
+        run: |
+          docker build -t ${{ secrets.DOCKERHUBUSERNAME }}/nginx-ci:latest .
+
+      # 5️⃣ Пуш до Docker Hub
+      - name: Push to DockerHub
+        run: |
+          docker push ${{ secrets.DOCKERHUBUSERNAME }}/nginx-ci:latest
