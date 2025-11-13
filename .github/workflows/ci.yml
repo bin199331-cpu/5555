@@ -1,4 +1,4 @@
-name: Build and Push alpine Docker Image1
+name: Build and Push alpine Docker Image2
 
 on:
   push:
@@ -24,15 +24,15 @@ jobs:
       - name: bin1993
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.SECRET_5}}
-          password: ${{ secrets.DOCKERHUB_SECRET }}
+          username: ${{ secrets.MY_SECRET_NAME }
+          password: ${{ secrets.DOCKER_SEK }}
 
       # 4️⃣ Збірка образу
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.SECRET_5 }}/alpine:latest .
+          docker build -t ${{ secrets.MY_SECRET_NAME }}/alpine:latest .
 
       # 5️⃣ Пуш до Docker Hub
       - name: Push to DockerHub
         run: |
-          docker push ${{ secrets.SECRET_5 }}/alpine:latest
+          docker push ${{ secrets.MY_SECRET_NAME }}/alpine:latest
