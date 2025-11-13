@@ -24,15 +24,15 @@ jobs:
       - name: bin1993
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUBUSERNAME }}
+          username: ${{ secrets.SECRET_5}}
           password: ${{ secrets.DOCKERHUB_SECRET }}
 
       # 4️⃣ Збірка образу
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKERHUBUSERNAME }}/alpine:latest .
+          docker build -t ${{ secrets.SECRET_5 }}/alpine:latest .
 
       # 5️⃣ Пуш до Docker Hub
       - name: Push to DockerHub
         run: |
-          docker push ${{ secrets.DOCKERHUBUSERNAME }}/alpine:latest
+          docker push ${{ secrets.SECRET_5 }}/alpine:latest
