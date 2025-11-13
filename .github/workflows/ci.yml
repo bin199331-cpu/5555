@@ -1,4 +1,4 @@
-name: Build and Push Nginx Docker Image
+name: Build and Push alpine Docker Image
 
 on:
   push:
@@ -30,9 +30,9 @@ jobs:
       # 4️⃣ Збірка образу
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKERHUBUSERNAME }}/nginx-ci:latest .
+          docker build -t ${{ secrets.DOCKERHUBUSERNAME }}/alpine:latest .
 
       # 5️⃣ Пуш до Docker Hub
       - name: Push to DockerHub
         run: |
-          docker push ${{ secrets.DOCKERHUBUSERNAME }}/nginx-ci:latest
+          docker push ${{ secrets.DOCKERHUBUSERNAME }}/alpine:latest
